@@ -28,6 +28,7 @@ from daligw import studies as S  # noqa: E402
 from daligw.diagnose import LEVELS, diagnose  # noqa: E402
 from daligw.evaluate import evaluate  # noqa: E402
 from daligw.scenario import FAULTS, T_OBS, make_run  # noqa: E402
+from daligw.variants import VARIANTS, emergency_scope  # noqa: E402
 
 # reference palette (categorical order fixed), light surface
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#6250d6"]
@@ -114,6 +115,10 @@ def diagnosis_part(n_runs, n_sens, out, summary):
 
 
 def polling_part(samples, summary):
+    """Slot scheduler with variant B's documented rule (one gear and one of two error
+    types per slot, S13 section 7.2), and the pause scheduler of S10. The 0.2 s slot is
+    below variant B's shortest setting (0.5 s): it shows the scheduler, not that variant."""
+    lo, hi = VARIANTS["B"].poll_settings_s.value
     rows = []
     for style_ in ("slot", "pause"):
         for n in (8, 16, 32, 64):
@@ -122,7 +127,8 @@ def polling_part(samples, summary):
                     d = S.reporting_delays(n, style_, tc, rho, samples, seed=n * 100 + int(tc * 10))
                     row = {"style": style_, "n": n, "t_cycle": tc, "rho": rho,
                            "mean": float(d.mean()), "p99": float(np.percentile(d, 99)),
-                           "max": float(d.max())}
+                           "max": float(d.max()),
+                           "setting_of_variant_B": style_ == "slot" and lo <= tc <= hi}
                     if style_ == "slot" or rho == 0.0:
                         row["formula_scan"] = S.scan_time_formula(n, style_, tc, rho)
                     rows.append(row)
@@ -150,26 +156,94 @@ def stagger_part(summary):
     return per, rows
 
 
+SWEEP_RATIOS = np.round(np.arange(0.80, 2.201, 0.01), 2)
+
+
+def _sweep(i_g, i_max, shape):
+    sw = S.overload_sweep(i_g=i_g, i_max=i_max, shape=shape, ratios=SWEEP_RATIOS)
+    first_err = next((x["ratio"] for x in sw if x["p_frame_near"] > 1e-3), None)
+    first_lost = next((x["ratio"] for x in sw if x["found"] < 64), None)
+    all_lost = next((x["ratio"] for x in sw if x["found"] == 0), None)
+    return {"rows": sw, "ratio_first_frame_errors": first_err,
+            "ratio_first_gear_lost": first_lost, "ratio_all_lost": all_lost,
+            "pct_over_first_frame_errors": round(100 * (first_err - 1)),
+            "pct_over_all_lost": round(100 * (all_lost - 1))}
+
+
 def supply_part(summary):
+    """Budget table over guaranteed currents, and the overload sweep with the documented
+    currents of variant B (128 mA guaranteed, 250 mA maximum). Above the guaranteed
+    current the supply curve is assumption A6 (two shapes)."""
     budget = S.budget_table()
-    sweeps = {}
-    for shape in ("linear", "hard"):
-        sw = S.overload_sweep(shape=shape, ratios=np.round(np.arange(0.80, 1.801, 0.01), 2))
-        first_err = next((x["ratio"] for x in sw if x["p_frame_near"] > 1e-3), None)
-        first_lost = next((x["ratio"] for x in sw if x["found"] < 64), None)
-        all_lost = next((x["ratio"] for x in sw if x["found"] == 0), None)
-        sweeps[shape] = {"rows": sw, "ratio_first_frame_errors": first_err,
-                         "ratio_first_gear_lost": first_lost, "ratio_all_lost": all_lost,
-                         "pct_over_first_frame_errors": round(100 * (first_err - 1)),
-                         "pct_over_all_lost": round(100 * (all_lost - 1))}
-    summary["supply"] = {"budget": budget, "sweep_i_g_ma": 150, "sweep_n_gear": 64,
-                         "sweep_length_m": 200, "sweep_mm2": 1.5,
+    b = VARIANTS["B"]
+    i_g, i_max = b.i_guaranteed_a.value, b.i_max_a.value
+    sweeps = {shape: _sweep(i_g, i_max, shape) for shape in ("linear", "hard")}
+    summary["supply"] = {"budget": budget, "sweep_variant": "B",
+                         "sweep_i_g_ma": 1e3 * i_g, "sweep_i_max_ma": 1e3 * i_max,
+                         "sweep_n_gear": 64, "sweep_length_m": 200, "sweep_mm2": 1.5,
                          "linear": {k: v for k, v in sweeps["linear"].items() if k != "rows"},
                          "hard": {k: v for k, v in sweeps["hard"].items() if k != "rows"},
                          "gear_64_draw_ma": 64 * C.I_GEAR_MAX * 1e3,
                          "guaranteed_needed_with_reserve_ma":
                              64 * C.I_GEAR_MAX * C.SUPPLY_RESERVE * 1e3}
     return sweeps
+
+
+def variants_part(samples, summary):
+    """Per documented variant: the facts with their sources, the polling rule where it is
+    stated, the supply budget, the overload sweep, the short-circuit timing and whether the
+    emergency-test fault class belongs to it."""
+    out = {}
+    e4_95 = summary["diagnosis"]["classes_certain_95"]["E4"]
+    for key, v in VARIANTS.items():
+        facts = {name: {"value": f.value, "source": f.source, "note": f.note}
+                 for name, f in v.facts().items()}
+        budget = S.variant_budget(v)
+        i_b = budget["i_guaranteed_ma"] or budget["i_max_ma"]
+        sweep = {}
+        if key != "B":           # variant B's sweep is summary["supply"]
+            for shape in ("linear", "hard"):
+                sw = _sweep(1e-3 * i_b, 1e-3 * budget["i_max_ma"], shape)
+                sweep[shape] = {k: x for k, x in sw.items() if k != "rows"}
+        scope = emergency_scope(v)
+        classes = [f for f in FAULTS if not (f == "EMERG_TEST" and scope != "in scope")]
+        out[key] = {"name": v.name, "facts": facts,
+                    "polling": S.variant_polling(v, 64, samples, seed=640),
+                    "budget": budget, "overload_sweep": sweep,
+                    "short_circuit": S.short_circuit_timing(v),
+                    "emergency_scope": scope,
+                    "fault_classes_claimed": len(classes),
+                    "e4_certain_95_claimed": sorted(f for f in e4_95 if f in classes)}
+    summary["variants"] = out
+    return out
+
+
+def energy_saving_part(trials, summary):
+    """Open question A19 on variant B's energy-saving function: both hypotheses."""
+    b = VARIANTS["B"]
+    n, tc = 64, b.poll_default_s.value
+    members = list(range(0, 64, 8))                  # 8 gear spread over the scan
+    lights_off = [(600.0, 660.0), (1200.0, 1500.0), (2400.0, 6000.0)]   # 1 min, 5 min, 1 h
+    cases = {}
+    for delay in (10.0, 600.0):                      # shortest and longest documented
+        for sup in (False, True):
+            run = S.energy_saving_run(n, members, tc, lights_off, delay, sup)
+            name = f"delay_{delay:g}s_{'suppressed' if sup else 'not_suppressed'}"
+            cases[name] = {k: v for k, v in run.items() if k != "knx"}
+            cases[name]["energy_saving_telegrams"] = sum(
+                1 for e in run["knx"] if e[1] == "energy_saving")
+            cases[name]["knx_excerpt"] = [list(e) for e in run["knx"][:6]]
+    rows = []
+    for delay in (10.0, 600.0):
+        for members_n in (1, 8):
+            for off in (30, 60, 120, 300, 900, 3600):
+                p = S.energy_saving_false_failure(n, tc, off, delay, members_n, trials,
+                                                  seed=off + int(delay))
+                rows.append({"delay_off_s": delay, "members": members_n, "lights_off_s": off,
+                             "p_not_suppressed": p, "p_suppressed": 0.0})
+    summary["energy_saving"] = {"n_gear": n, "t_cycle": tc, "members": len(members),
+                                "lights_off": lights_off, "cases": cases, "rows": rows}
+    return rows
 
 
 def wiring_part(summary):
@@ -348,11 +422,15 @@ def fig_stagger(per, rows, out):
 
 def fig_supply(sweeps, out):
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
-    for c, shape in zip(SERIES, ("linear", "hard")):
-        rows = sweeps[shape]["rows"]
+    p = VARIANTS["P"]
+    curves = [(f"variant B, supply model {shape}", sweeps[shape]["rows"], "-")
+              for shape in ("linear", "hard")]
+    curves.append(("variant P, 160 mA guaranteed = maximum",
+                   _sweep(p.i_guaranteed_a.value, p.i_max_a.value, "linear")["rows"], "--"))
+    for c, (label, rows, ls) in zip(SERIES, curves):
         x = [100 * (q["ratio"] - 1) for q in rows]
-        axes[0].plot(x, [q["v_gateway"] for q in rows], color=c, label=f"supply model: {shape}")
-        axes[1].plot(x, [q["found"] for q in rows], color=c, label=f"supply model: {shape}")
+        axes[0].plot(x, [q["v_gateway"] for q in rows], color=c, ls=ls, label=label)
+        axes[1].plot(x, [q["found"] for q in rows], color=c, ls=ls, label=label)
     axes[0].axhline(C.DEV_V_HIGH_MIN, color=INK2, lw=1, ls=":")
     axes[0].text(-18, C.DEV_V_HIGH_MIN + 0.3, "gateway reads high above 10 V", fontsize=8, color=INK2)
     axes[0].axhline(C.GEAR_V_HIGH_MIN, color=INK2, lw=1, ls="--")
@@ -361,8 +439,10 @@ def fig_supply(sweeps, out):
     axes[1].set_ylabel("gear found at commissioning (of 64)")
     for ax in axes:
         ax.set_xlabel("total draw above the guaranteed current (%)")
-        ax.legend(fontsize=8)
-    axes[0].set_title("150 mA guaranteed, 250 mA max, 200 m of 1.5 mm2", loc="left", fontsize=10)
+    axes[0].legend(fontsize=8, loc="lower left", bbox_to_anchor=(0.0, 0.06))
+    axes[1].legend(fontsize=8, loc="center right")
+    axes[0].set_title("Variant B: 128 mA guaranteed, 250 mA max; 200 m of 1.5 mm2",
+                      loc="left", fontsize=10)
     axes[1].set_title("The gateway loses every gear at once", loc="left", fontsize=10)
     fig.tight_layout()
     fig.savefig(out / "supply_overload.png", dpi=150)
@@ -433,6 +513,8 @@ def main():
     sweeps = supply_part(summary)
     wiring_part(summary)
     mrows = mains_part(trials, summary)
+    variants_part(samples, summary)
+    energy_saving_part(trials, summary)
     support_case(out, summary)
     fig_diagnosis(res, out)
     fig_confusion(res, out)

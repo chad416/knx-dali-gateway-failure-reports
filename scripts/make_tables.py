@@ -10,6 +10,101 @@ def pct(x):
     return f"{100 * x:.0f}"
 
 
+def _fact(f) -> str:
+    v = f["value"]
+    if v is None:
+        return "not stated"
+    if isinstance(v, bool):
+        v = "yes" if v else "no"
+    elif isinstance(v, list):
+        v = " / ".join(f"{x:g}" if isinstance(x, (int, float)) else str(x) for x in v)
+    elif isinstance(v, float):
+        v = f"{v:g}"
+    return f"{v} ({f['source']})"
+
+
+def _variant_tables(d: dict, L: list) -> None:
+    vs = d["variants"]
+    keys = list(vs)
+    L.append("## T12 Gateway variants: documented facts\n")
+    L.append("Values with their source (docs/SOURCES.md). \"not stated\": the documents read do "
+             "not state it. Currents in A, times in s, lengths in m.\n")
+    L.append("| fact | " + " | ".join(vs[k]["name"] for k in keys) + " |\n|---|" + "---|" * len(keys))
+    for name in vs[keys[0]]["facts"]:
+        L.append(f"| {name} | " + " | ".join(_fact(vs[k]["facts"][name]) for k in keys) + " |")
+    L.append("")
+    L.append("## T13 Gateway variants: polling, budget, overload, short circuit, emergency class\n")
+    L.append("| item | " + " | ".join(keys) + " |\n|---|" + "---|" * len(keys))
+
+    def row(label, fn):
+        L.append(f"| {label} | " + " | ".join(fn(vs[k], k) for k in keys) + " |")
+
+    def poll(v, key, field, fmt="{:.0f} s"):
+        p = v["polling"]
+        return fmt.format(p[field]) if p["documented"] else "not documented"
+
+    row("worst reporting delay, 64 gear, default setting (quoted)", lambda v, k: poll(v, k, "worst_default_s"))
+    row("simulated worst / mean, default setting",
+        lambda v, k: f"{v['polling']['sim_max_default_s']:.1f} / {v['polling']['sim_mean_default_s']:.1f} s"
+        if v["polling"]["documented"] else "not documented")
+    row("worst delay at shortest / longest setting (arithmetic)",
+        lambda v, k: f"{v['polling']['worst_shortest_setting_s']:.0f} / {v['polling']['worst_longest_setting_s']:.0f} s"
+        if v["polling"]["documented"] else "not documented")
+    row("budget basis", lambda v, k: v["budget"]["basis"])
+    row("gear at 2 mA, no reserve / with / 1.2 reserve (capped at 64)",
+        lambda v, k: f"{v['budget']['gear_no_reserve']} / {v['budget']['gear_with_reserve']}")
+    row("same, uncapped", lambda v, k: f"{v['budget']['uncapped_no_reserve']} / {v['budget']['uncapped_with_reserve']}")
+    row("maximum above budget current", lambda v, k: f"{v['budget']['headroom_above_guaranteed_pct']:.0f} %")
+    row("wiring drop at the table limit (6.90 ohm) at the maximum current",
+        lambda v, k: f"{v['budget']['drop_at_table_limit_v']:.2f} V")
+
+    def over(v, k):
+        if k == "B":
+            s = d["supply"]
+            return (f"all gear lost at {s['linear']['pct_over_all_lost']} % (linear) / "
+                    f"{s['hard']['pct_over_all_lost']} % (hard) over {s['sweep_i_g_ma']:.0f} mA")
+        o = v["overload_sweep"]
+        return (f"all gear lost at {o['linear']['pct_over_all_lost']} % (linear) / "
+                f"{o['hard']['pct_over_all_lost']} % (hard)")
+    row("overload sweep, 64 gear, 200 m of 1.5 mm2 (A6)", over)
+
+    def sc(v, k, field):
+        s = v["short_circuit"]
+        return f"{s[field]:g} s" if s["documented"] and s[field] is not None else "not documented"
+    row("short: shutdown after", lambda v, k: sc(v, k, "shutdown_s"))
+    row("short: bus back at most this long after it clears (A18)", lambda v, k: sc(v, k, "worst_wait_after_clear_s"))
+    row("short: fault during it reported at most this long after it clears",
+        lambda v, k: sc(v, k, "worst_report_after_clear_s"))
+    row("emergency-test fault class", lambda v, k: v["emergency_scope"])
+    row("fault classes claimed (of 11)", lambda v, k: str(v["fault_classes_claimed"]))
+    row("classes certain in >= 95 % at E4, claimed", lambda v, k: str(len(v["e4_certain_95_claimed"])))
+    L.append("")
+    b = vs["B"]["short_circuit"]
+    if b["documented"]:
+        L.append("Variant B, bus back and worst report after a short of a given length (A18):\n")
+        L.append("| short (s) | bus back after onset (s) | wait after clear (s) | worst report after clear (s) |\n|---|---|---|---|")
+        for r in b["rows"]:
+            L.append(f"| {r['short_s']:g} | {r['bus_back_s']:.1f} | {r['wait_after_clear_s']:.1f} | "
+                     f"{r['worst_report_after_clear_s']:.1f} |")
+        L.append("")
+    es = d["energy_saving"]
+    L.append("## T14 Open question A19: gear mains switched off by the energy-saving function\n")
+    L.append(f"Variant B rule, {es['n_gear']} gear, {es['t_cycle']:g} s polling, {es['members']} gear on one "
+             "energy-saving object; lights off for "
+             + ", ".join(f"{b - a:g} s" for a, b in es["lights_off"]) + ".\n")
+    L.append("| off delay | hypothesis | gear failure telegrams | gear reported failed | max failures in total | polls skipped |\n|---|---|---|---|---|---|")
+    for name, c in es["cases"].items():
+        delay, hyp = name.split("_", 2)[1], name.split("_", 2)[2].replace("_", " ")
+        L.append(f"| {delay} | {hyp} | {c['gear_failure_telegrams']} | {len(c['gear_reported_failed'])} | "
+                 f"{c['max_failures_in_total']} | {c['polls_skipped']} |")
+    L.append("")
+    L.append("| off delay (s) | gear on the object | lights off (s) | periods with a false failure, not suppressed | suppressed |\n|---|---|---|---|---|")
+    for r in es["rows"]:
+        L.append(f"| {r['delay_off_s']:g} | {r['members']} | {r['lights_off_s']} | {pct(r['p_not_suppressed'])} % | "
+                 f"{pct(r['p_suppressed'])} % |")
+    L.append("")
+
+
 def write_tables(d: dict, path: Path) -> None:
     L = []
     dg = d["diagnosis"]
@@ -63,12 +158,13 @@ def write_tables(d: dict, path: Path) -> None:
              f"{h.get('with_hidden_lamp', 0)} lamp failures reported at any level.\n")
 
     L.append("## T7 Reporting delay of a failure (s)\n")
-    L.append("| scheduler | gear | slot / pause (s) | traffic | mean | p99 | max | formula |\n|---|---|---|---|---|---|---|---|")
+    L.append("| scheduler | gear | slot / pause (s) | traffic | mean | p99 | max | formula | setting of variant B |\n|---|---|---|---|---|---|---|---|---|")
     for row in d["polling"]["rows"]:
         if row["n"] in (16, 64):
             fs = f"{row['formula_scan']:.1f}" if "formula_scan" in row else "-"
+            vb = "-" if row["style"] != "slot" else ("yes" if row.get("setting_of_variant_B") else "no")
             L.append(f"| {row['style']} | {row['n']} | {row['t_cycle']:g} | {pct(row['rho'])} % | "
-                     f"{row['mean']:.1f} | {row['p99']:.1f} | {row['max']:.1f} | {fs} |")
+                     f"{row['mean']:.1f} | {row['p99']:.1f} | {row['max']:.1f} | {fs} | {vb} |")
     L.append("")
     st = d["stagger"]
     L.append("## T8 First-to-last time with individual commands (s)\n")
@@ -88,7 +184,9 @@ def write_tables(d: dict, path: Path) -> None:
     L.append("")
     for shape in ("linear", "hard"):
         q = sp[shape]
-        L.append(f"- Overload sweep, supply model {shape}: first frame errors at {q['ratio_first_frame_errors']} x "
+        L.append(f"- Overload sweep, variant B ({sp['sweep_i_g_ma']:.0f} mA guaranteed, "
+                 f"{sp['sweep_i_max_ma']:.0f} mA maximum), supply model {shape} (assumption A6): "
+                 f"first frame errors at {q['ratio_first_frame_errors']} x "
                  f"guaranteed current, first gear lost at {q['ratio_first_gear_lost']}, all lost at {q['ratio_all_lost']}.")
     L.append("")
     L.append("## T10 Wiring: far-end reliability\n")
@@ -103,6 +201,8 @@ def write_tables(d: dict, path: Path) -> None:
     for row in d["mains"]["rows"]:
         L.append(f"| {row['n']} | {row['members']} | {row['off_s']} | {pct(row['p_sim'])} % | {pct(row['p_formula_one'])} % |")
     L.append("")
+    if "variants" in d:
+        _variant_tables(d, L)
     path.write_text("\n".join(L) + "\n", encoding="utf-8")
 
 

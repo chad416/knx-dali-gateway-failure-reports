@@ -650,6 +650,7 @@
     "mean": 1.6056,
     "p99": 3.1749,
     "max": 3.1998,
+    "setting_of_variant_B": false,
     "formula_scan": 3.2
    },
    {
@@ -660,6 +661,7 @@
     "mean": 1.6094,
     "p99": 3.2455,
     "max": 3.682,
+    "setting_of_variant_B": false,
     "formula_scan": 3.2
    },
    {
@@ -670,6 +672,7 @@
     "mean": 4.6321,
     "p99": 16.6577,
     "max": 19.7929,
+    "setting_of_variant_B": false,
     "formula_scan": 8.7787
    },
    {
@@ -680,6 +683,7 @@
     "mean": 4.0189,
     "p99": 7.9198,
     "max": 7.9966,
+    "setting_of_variant_B": true,
     "formula_scan": 8.0
    },
    {
@@ -690,6 +694,7 @@
     "mean": 4.0113,
     "p99": 7.932,
     "max": 8.2415,
+    "setting_of_variant_B": true,
     "formula_scan": 8.0
    },
    {
@@ -700,6 +705,7 @@
     "mean": 6.4609,
     "p99": 24.26,
     "max": 31.5065,
+    "setting_of_variant_B": true,
     "formula_scan": 8.7787
    },
    {
@@ -710,6 +716,7 @@
     "mean": 8.0725,
     "p99": 15.8511,
     "max": 15.9968,
+    "setting_of_variant_B": true,
     "formula_scan": 16.0
    },
    {
@@ -720,6 +727,7 @@
     "mean": 8.0653,
     "p99": 15.8489,
     "max": 16.3757,
+    "setting_of_variant_B": true,
     "formula_scan": 16.0
    },
    {
@@ -730,6 +738,7 @@
     "mean": 8.7649,
     "p99": 24.4538,
     "max": 30.8957,
+    "setting_of_variant_B": true,
     "formula_scan": 16.0
    },
    {
@@ -740,6 +749,7 @@
     "mean": 15.9494,
     "p99": 31.7021,
     "max": 31.9845,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -750,6 +760,7 @@
     "mean": 15.8218,
     "p99": 31.7235,
     "max": 32.2999,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -760,6 +771,7 @@
     "mean": 16.682,
     "p99": 41.7976,
     "max": 63.9378,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -770,6 +782,7 @@
     "mean": 3.1804,
     "p99": 6.3544,
     "max": 6.3998,
+    "setting_of_variant_B": false,
     "formula_scan": 6.4
    },
    {
@@ -780,6 +793,7 @@
     "mean": 3.2198,
     "p99": 6.3738,
     "max": 6.8805,
+    "setting_of_variant_B": false,
     "formula_scan": 6.4
    },
    {
@@ -790,6 +804,7 @@
     "mean": 10.8441,
     "p99": 32.3127,
     "max": 38.4855,
+    "setting_of_variant_B": false,
     "formula_scan": 17.5573
    },
    {
@@ -800,6 +815,7 @@
     "mean": 8.1113,
     "p99": 15.8863,
     "max": 15.999,
+    "setting_of_variant_B": true,
     "formula_scan": 16.0
    },
    {
@@ -810,6 +826,7 @@
     "mean": 8.0018,
     "p99": 15.8505,
     "max": 16.2752,
+    "setting_of_variant_B": true,
     "formula_scan": 16.0
    },
    {
@@ -820,6 +837,7 @@
     "mean": 10.5297,
     "p99": 36.4745,
     "max": 44.4162,
+    "setting_of_variant_B": true,
     "formula_scan": 17.5573
    },
    {
@@ -830,6 +848,7 @@
     "mean": 16.1128,
     "p99": 31.6598,
     "max": 31.9962,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -840,6 +859,7 @@
     "mean": 16.0456,
     "p99": 31.7177,
     "max": 32.529,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -850,6 +870,7 @@
     "mean": 16.5426,
     "p99": 37.5361,
     "max": 46.7192,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -860,6 +881,7 @@
     "mean": 31.9372,
     "p99": 63.3055,
     "max": 63.972,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -870,6 +892,7 @@
     "mean": 32.2998,
     "p99": 63.307,
     "max": 64.1775,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -880,6 +903,7 @@
     "mean": 32.3602,
     "p99": 68.3255,
     "max": 81.237,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -890,6 +914,7 @@
     "mean": 6.35,
     "p99": 12.6692,
     "max": 12.7994,
+    "setting_of_variant_B": false,
     "formula_scan": 12.8
    },
    {
@@ -900,6 +925,7 @@
     "mean": 6.3099,
     "p99": 12.6722,
     "max": 13.179,
+    "setting_of_variant_B": false,
     "formula_scan": 12.8
    },
    {
@@ -910,6 +936,7 @@
     "mean": 20.1829,
     "p99": 56.3549,
     "max": 79.9324,
+    "setting_of_variant_B": false,
     "formula_scan": 35.1147
    },
    {
@@ -920,6 +947,7 @@
     "mean": 15.9062,
     "p99": 31.6222,
     "max": 31.9828,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -930,6 +958,7 @@
     "mean": 15.9128,
     "p99": 31.6803,
     "max": 32.1382,
+    "setting_of_variant_B": true,
     "formula_scan": 32.0
    },
    {
@@ -940,6 +969,7 @@
     "mean": 19.8928,
     "p99": 55.882,
     "max": 74.3491,
+    "setting_of_variant_B": true,
     "formula_scan": 35.1147
    },
    {
@@ -950,6 +980,7 @@
     "mean": 32.6028,
     "p99": 63.257,
     "max": 63.9917,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -960,6 +991,7 @@
     "mean": 32.0841,
     "p99": 63.3462,
     "max": 64.0015,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -970,6 +1002,7 @@
     "mean": 32.1915,
     "p99": 70.0056,
     "max": 85.0932,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -980,6 +1013,7 @@
     "mean": 63.8827,
     "p99": 126.5852,
     "max": 127.8379,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -990,6 +1024,7 @@
     "mean": 63.2359,
     "p99": 126.7822,
     "max": 127.9867,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -1000,6 +1035,7 @@
     "mean": 63.9286,
     "p99": 127.905,
     "max": 144.556,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -1010,6 +1046,7 @@
     "mean": 12.6185,
     "p99": 25.2563,
     "max": 25.5974,
+    "setting_of_variant_B": false,
     "formula_scan": 25.6
    },
    {
@@ -1020,6 +1057,7 @@
     "mean": 12.8486,
     "p99": 25.3451,
     "max": 25.8922,
+    "setting_of_variant_B": false,
     "formula_scan": 25.6
    },
    {
@@ -1030,6 +1068,7 @@
     "mean": 34.4238,
     "p99": 87.9805,
     "max": 101.7875,
+    "setting_of_variant_B": false,
     "formula_scan": 70.2293
    },
    {
@@ -1040,6 +1079,7 @@
     "mean": 32.244,
     "p99": 63.3439,
     "max": 63.9962,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -1050,6 +1090,7 @@
     "mean": 31.8118,
     "p99": 63.4343,
     "max": 63.9839,
+    "setting_of_variant_B": true,
     "formula_scan": 64.0
    },
    {
@@ -1060,6 +1101,7 @@
     "mean": 37.3481,
     "p99": 89.7443,
     "max": 105.3078,
+    "setting_of_variant_B": true,
     "formula_scan": 70.2293
    },
    {
@@ -1070,6 +1112,7 @@
     "mean": 64.1382,
     "p99": 126.7281,
     "max": 127.9004,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -1080,6 +1123,7 @@
     "mean": 64.6207,
     "p99": 126.9037,
     "max": 128.0693,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -1090,6 +1134,7 @@
     "mean": 64.4835,
     "p99": 128.955,
     "max": 156.5084,
+    "setting_of_variant_B": true,
     "formula_scan": 128.0
    },
    {
@@ -1100,6 +1145,7 @@
     "mean": 128.5313,
     "p99": 253.5048,
     "max": 255.9183,
+    "setting_of_variant_B": true,
     "formula_scan": 256.0
    },
    {
@@ -1110,6 +1156,7 @@
     "mean": 128.949,
     "p99": 253.4982,
     "max": 255.9295,
+    "setting_of_variant_B": true,
     "formula_scan": 256.0
    },
    {
@@ -1120,6 +1167,7 @@
     "mean": 127.1467,
     "p99": 254.3872,
     "max": 267.7507,
+    "setting_of_variant_B": true,
     "formula_scan": 256.0
    },
    {
@@ -1130,6 +1178,7 @@
     "mean": 1.0206,
     "p99": 2.0195,
     "max": 2.0382,
+    "setting_of_variant_B": false,
     "formula_scan": 2.0389
    },
    {
@@ -1139,7 +1188,8 @@
     "rho": 0.5,
     "mean": 1.2054,
     "p99": 2.6539,
-    "max": 3.0864
+    "max": 3.0864,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1148,7 +1198,8 @@
     "rho": 0.9,
     "mean": 3.5415,
     "p99": 8.9875,
-    "max": 10.213
+    "max": 10.213,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1158,6 +1209,7 @@
     "mean": 2.2143,
     "p99": 4.3917,
     "max": 4.4386,
+    "setting_of_variant_B": false,
     "formula_scan": 4.4389
    },
    {
@@ -1167,7 +1219,8 @@
     "rho": 0.5,
     "mean": 2.3846,
     "p99": 4.9244,
-    "max": 5.2547
+    "max": 5.2547,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1176,7 +1229,8 @@
     "rho": 0.9,
     "mean": 7.4469,
     "p99": 25.0255,
-    "max": 29.7083
+    "max": 29.7083,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1186,6 +1240,7 @@
     "mean": 4.2421,
     "p99": 8.3552,
     "max": 8.4367,
+    "setting_of_variant_B": false,
     "formula_scan": 8.4389
    },
    {
@@ -1195,7 +1250,8 @@
     "rho": 0.5,
     "mean": 4.4162,
     "p99": 8.6691,
-    "max": 8.947
+    "max": 8.947,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1204,7 +1260,8 @@
     "rho": 0.9,
     "mean": 9.4981,
     "p99": 27.7644,
-    "max": 34.6008
+    "max": 34.6008,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1214,6 +1271,7 @@
     "mean": 8.0617,
     "p99": 16.2455,
     "max": 16.4383,
+    "setting_of_variant_B": false,
     "formula_scan": 16.4389
    },
    {
@@ -1223,7 +1281,8 @@
     "rho": 0.5,
     "mean": 8.2694,
     "p99": 16.4574,
-    "max": 16.8016
+    "max": 16.8016,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1232,7 +1291,8 @@
     "rho": 0.9,
     "mean": 15.8317,
     "p99": 64.1698,
-    "max": 82.9747
+    "max": 82.9747,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1242,6 +1302,7 @@
     "mean": 2.0521,
     "p99": 4.0453,
     "max": 4.0771,
+    "setting_of_variant_B": false,
     "formula_scan": 4.0779
    },
    {
@@ -1251,7 +1312,8 @@
     "rho": 0.5,
     "mean": 2.3606,
     "p99": 4.7599,
-    "max": 5.065
+    "max": 5.065,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1260,7 +1322,8 @@
     "rho": 0.9,
     "mean": 10.268,
     "p99": 26.8298,
-    "max": 35.3734
+    "max": 35.3734,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1270,6 +1333,7 @@
     "mean": 4.4821,
     "p99": 8.7807,
     "max": 8.8766,
+    "setting_of_variant_B": false,
     "formula_scan": 8.8779
    },
    {
@@ -1279,7 +1343,8 @@
     "rho": 0.5,
     "mean": 4.7084,
     "p99": 9.2439,
-    "max": 9.5893
+    "max": 9.5893,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1288,7 +1353,8 @@
     "rho": 0.9,
     "mean": 11.264,
     "p99": 38.032,
-    "max": 44.9452
+    "max": 44.9452,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1298,6 +1364,7 @@
     "mean": 8.547,
     "p99": 16.7592,
     "max": 16.8738,
+    "setting_of_variant_B": false,
     "formula_scan": 16.8779
    },
    {
@@ -1307,7 +1374,8 @@
     "rho": 0.5,
     "mean": 8.7591,
     "p99": 17.3081,
-    "max": 17.6855
+    "max": 17.6855,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1316,7 +1384,8 @@
     "rho": 0.9,
     "mean": 17.0478,
     "p99": 48.1235,
-    "max": 60.6388
+    "max": 60.6388,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1326,6 +1395,7 @@
     "mean": 16.5737,
     "p99": 32.5603,
     "max": 32.8768,
+    "setting_of_variant_B": false,
     "formula_scan": 32.8779
    },
    {
@@ -1335,7 +1405,8 @@
     "rho": 0.5,
     "mean": 16.6533,
     "p99": 33.2733,
-    "max": 34.0959
+    "max": 34.0959,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1344,7 +1415,8 @@
     "rho": 0.9,
     "mean": 27.6765,
     "p99": 71.0192,
-    "max": 84.1485
+    "max": 84.1485,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1354,6 +1426,7 @@
     "mean": 4.1518,
     "p99": 8.076,
     "max": 8.1552,
+    "setting_of_variant_B": false,
     "formula_scan": 8.1557
    },
    {
@@ -1363,7 +1436,8 @@
     "rho": 0.5,
     "mean": 4.7827,
     "p99": 10.1644,
-    "max": 11.0366
+    "max": 11.0366,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1372,7 +1446,8 @@
     "rho": 0.9,
     "mean": 16.2401,
     "p99": 48.6297,
-    "max": 53.7083
+    "max": 53.7083,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1382,6 +1457,7 @@
     "mean": 8.8683,
     "p99": 17.6097,
     "max": 17.7514,
+    "setting_of_variant_B": false,
     "formula_scan": 17.7557
    },
    {
@@ -1391,7 +1467,8 @@
     "rho": 0.5,
     "mean": 9.5172,
     "p99": 19.195,
-    "max": 20.3485
+    "max": 20.3485,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1400,7 +1477,8 @@
     "rho": 0.9,
     "mean": 24.3322,
     "p99": 64.7847,
-    "max": 86.1609
+    "max": 86.1609,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1410,6 +1488,7 @@
     "mean": 17.1731,
     "p99": 33.4006,
     "max": 33.7533,
+    "setting_of_variant_B": false,
     "formula_scan": 33.7557
    },
    {
@@ -1419,7 +1498,8 @@
     "rho": 0.5,
     "mean": 17.4843,
     "p99": 34.5328,
-    "max": 35.6369
+    "max": 35.6369,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1428,7 +1508,8 @@
     "rho": 0.9,
     "mean": 32.4648,
     "p99": 80.1201,
-    "max": 91.9082
+    "max": 91.9082,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1438,6 +1519,7 @@
     "mean": 33.0749,
     "p99": 65.139,
     "max": 65.7398,
+    "setting_of_variant_B": false,
     "formula_scan": 65.7557
    },
    {
@@ -1447,7 +1529,8 @@
     "rho": 0.5,
     "mean": 33.2448,
     "p99": 66.2152,
-    "max": 67.5222
+    "max": 67.5222,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1456,7 +1539,8 @@
     "rho": 0.9,
     "mean": 50.925,
     "p99": 112.7933,
-    "max": 131.3118
+    "max": 131.3118,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1466,6 +1550,7 @@
     "mean": 8.2091,
     "p99": 16.1373,
     "max": 16.3101,
+    "setting_of_variant_B": false,
     "formula_scan": 16.3115
    },
    {
@@ -1475,7 +1560,8 @@
     "rho": 0.5,
     "mean": 9.36,
     "p99": 18.4813,
-    "max": 19.3807
+    "max": 19.3807,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1484,7 +1570,8 @@
     "rho": 0.9,
     "mean": 30.0937,
     "p99": 76.1901,
-    "max": 90.3414
+    "max": 90.3414,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1494,6 +1581,7 @@
     "mean": 17.886,
     "p99": 35.1506,
     "max": 35.5051,
+    "setting_of_variant_B": false,
     "formula_scan": 35.5115
    },
    {
@@ -1503,7 +1591,8 @@
     "rho": 0.5,
     "mean": 18.7584,
     "p99": 37.2503,
-    "max": 38.7453
+    "max": 38.7453,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1512,7 +1601,8 @@
     "rho": 0.9,
     "mean": 43.6835,
     "p99": 98.3439,
-    "max": 109.8498
+    "max": 109.8498,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1522,6 +1612,7 @@
     "mean": 34.0442,
     "p99": 66.9089,
     "max": 67.4958,
+    "setting_of_variant_B": false,
     "formula_scan": 67.5115
    },
    {
@@ -1531,7 +1622,8 @@
     "rho": 0.5,
     "mean": 34.9937,
     "p99": 69.2739,
-    "max": 70.5969
+    "max": 70.5969,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1540,7 +1632,8 @@
     "rho": 0.9,
     "mean": 69.4732,
     "p99": 160.0717,
-    "max": 198.997
+    "max": 198.997,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1550,6 +1643,7 @@
     "mean": 65.6704,
     "p99": 130.4693,
     "max": 131.5076,
+    "setting_of_variant_B": false,
     "formula_scan": 131.5115
    },
    {
@@ -1559,7 +1653,8 @@
     "rho": 0.5,
     "mean": 67.565,
     "p99": 132.6296,
-    "max": 135.3531
+    "max": 135.3531,
+    "setting_of_variant_B": false
    },
    {
     "style": "pause",
@@ -1568,7 +1663,8 @@
     "rho": 0.9,
     "mean": 104.8998,
     "p99": 219.7476,
-    "max": 257.2403
+    "max": 257.2403,
+    "setting_of_variant_B": false
    }
   ],
   "max_rel_error_no_traffic": 0.0013,
@@ -1685,23 +1781,25 @@
     "uncapped_with_reserve": 104
    }
   ],
-  "sweep_i_g_ma": 150,
+  "sweep_variant": "B",
+  "sweep_i_g_ma": 128.0,
+  "sweep_i_max_ma": 250.0,
   "sweep_n_gear": 64,
   "sweep_length_m": 200,
   "sweep_mm2": 1.5,
   "linear": {
-   "ratio_first_frame_errors": 1.16,
-   "ratio_first_gear_lost": 1.21,
-   "ratio_all_lost": 1.21,
-   "pct_over_first_frame_errors": 16,
-   "pct_over_all_lost": 21
+   "ratio_first_frame_errors": 1.23,
+   "ratio_first_gear_lost": 1.3,
+   "ratio_all_lost": 1.3,
+   "pct_over_first_frame_errors": 23,
+   "pct_over_all_lost": 30
   },
   "hard": {
-   "ratio_first_frame_errors": 1.67,
-   "ratio_first_gear_lost": 1.67,
-   "ratio_all_lost": 1.67,
-   "pct_over_first_frame_errors": 67,
-   "pct_over_all_lost": 67
+   "ratio_first_frame_errors": 1.96,
+   "ratio_first_gear_lost": 1.96,
+   "ratio_all_lost": 1.96,
+   "pct_over_first_frame_errors": 96,
+   "pct_over_all_lost": 96
   },
   "gear_64_draw_ma": 128.0,
   "guaranteed_needed_with_reserve_ma": 153.6
@@ -1931,6 +2029,898 @@
    }
   ],
   "max_abs_error_one_member": 0.0084
+ },
+ "variants": {
+  "B": {
+   "name": "variant B: basic, no display",
+   "facts": {
+    "channels": {
+     "value": [
+      1,
+      2
+     ],
+     "source": "S13 section 1, p. 4",
+     "note": "a one-channel and a two-channel device; the second channel is an identical copy of the first"
+    },
+    "gear_per_channel": {
+     "value": 64,
+     "source": "S13 section 2.3, p. 5-6",
+     "note": ""
+    },
+    "groups_per_channel": {
+     "value": 16,
+     "source": "S13 section 2.3, p. 6",
+     "note": ""
+    },
+    "scenes_per_channel": {
+     "value": 16,
+     "source": "S13 section 8.1, p. 24",
+     "note": "the document says 16 scenes on the gateway; per channel is inferred from the identical second channel"
+    },
+    "single_master": {
+     "value": null,
+     "source": "-",
+     "note": "no quoted sentence on multi-master operation"
+    },
+    "external_supply_allowed": {
+     "value": false,
+     "source": "S13 section 2.3, p. 5",
+     "note": "an additional DALI supply is not required and not permitted"
+    },
+    "i_guaranteed_a": {
+     "value": 0.128,
+     "source": "S15 p. 2, technical data",
+     "note": "stated as 'min. 128 mA' for the one-channel device; reading 'min.' as the guaranteed current is my interpretation; the two-channel device's current is not stated"
+    },
+    "i_max_a": {
+     "value": 0.25,
+     "source": "S15 p. 2, technical data",
+     "note": "one-channel device"
+    },
+    "short_shutdown_s": {
+     "value": 0.6,
+     "source": "S15 p. 2, technical data",
+     "note": "shutdown 600 ms after a DALI short circuit"
+    },
+    "short_restart_s": {
+     "value": 5.0,
+     "source": "S15 p. 2, technical data",
+     "note": "start-up attempt 5 s after short-circuit detection; that attempts repeat at this interval while the short lasts is assumption A18"
+    },
+    "short_hides_failures": {
+     "value": null,
+     "source": "-",
+     "note": "stated for variant P, not quoted for B"
+    },
+    "cable_max_m": {
+     "value": 300.0,
+     "source": "S15 p. 2, technical data",
+     "note": "whole DALI installation of a segment, 1.5 mm2 recommended"
+    },
+    "emergency_test_commands": {
+     "value": false,
+     "source": "S15 p. 1, notes",
+     "note": "single-battery converters can be read, switched and operated; DALI commands for starting tests and reading test results are not supported"
+    },
+    "poll_default_s": {
+     "value": 1.0,
+     "source": "S13 section 7.2, p. 20; same in S14",
+     "note": "standard setting; 64 gear take 128 s, 'up to about 2 minutes' before a fault is recognised"
+    },
+    "poll_settings_s": {
+     "value": [
+      0.5,
+      10.0
+     ],
+     "source": "S13 section 9.1.2, p. 43; same in S14",
+     "note": "options: no request, 0.5 s, 1 s, 2 ... 10 s; 'no request' switches gear and lamp fault recognition off; whether the two channels of the two-channel device are polled in parallel is not stated"
+    },
+    "poll_error_types": {
+     "value": 2,
+     "source": "S13 section 7.2, p. 20",
+     "note": "1 s per gear and type of error"
+    },
+    "energy_saving": {
+     "value": "16 objects, assigned per group or per gear; off delay 10 s to 10 min, on delay 0.1 to 2 s",
+     "source": "S13 sections 8.3, p. 27, and 9.1.3, p. 46",
+     "note": ""
+    },
+    "failures_suppressed_while_mains_off": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read (open question A19)"
+    }
+   },
+   "polling": {
+    "documented": true,
+    "n_gear": 64,
+    "default_s": 1.0,
+    "error_types": 2,
+    "worst_default_s": 128.0,
+    "sim_max_default_s": 127.9808,
+    "sim_mean_default_s": 64.0945,
+    "shortest_setting_s": 0.5,
+    "worst_shortest_setting_s": 64.0,
+    "longest_setting_s": 10.0,
+    "worst_longest_setting_s": 1280.0,
+    "no_request": "gear and lamp failures are never reported",
+    "two_channels": "not stated whether polled in parallel; no figure for 128 gear"
+   },
+   "budget": {
+    "i_guaranteed_ma": 128.0,
+    "i_max_ma": 250.0,
+    "basis": "guaranteed",
+    "gear_no_reserve": 64,
+    "gear_with_reserve": 53,
+    "uncapped_no_reserve": 64,
+    "uncapped_with_reserve": 53,
+    "headroom_above_guaranteed_pct": 95.3125,
+    "drop_at_table_limit_v": 1.7241
+   },
+   "overload_sweep": {},
+   "short_circuit": {
+    "documented": true,
+    "shutdown_s": 0.6,
+    "restart_s": 5.0,
+    "scan_s": 128.0,
+    "worst_wait_after_clear_s": 5.0,
+    "mean_wait_after_clear_s": 2.5,
+    "worst_report_after_clear_s": 133.0,
+    "mean_report_after_clear_s": 66.5,
+    "rows": [
+     {
+      "short_s": 0.3,
+      "bus_back_s": 0.3,
+      "wait_after_clear_s": 0.0,
+      "worst_report_after_clear_s": 128.0
+     },
+     {
+      "short_s": 2.0,
+      "bus_back_s": 5.6,
+      "wait_after_clear_s": 3.6,
+      "worst_report_after_clear_s": 131.6
+     },
+     {
+      "short_s": 10.0,
+      "bus_back_s": 10.6,
+      "wait_after_clear_s": 0.6,
+      "worst_report_after_clear_s": 128.6
+     },
+     {
+      "short_s": 60.0,
+      "bus_back_s": 60.6,
+      "wait_after_clear_s": 0.6,
+      "worst_report_after_clear_s": 128.6
+     },
+     {
+      "short_s": 600.0,
+      "bus_back_s": 600.6,
+      "wait_after_clear_s": 0.6,
+      "worst_report_after_clear_s": 128.6
+     }
+    ]
+   },
+   "emergency_scope": "outside this variant",
+   "fault_classes_claimed": 10,
+   "e4_certain_95_claimed": [
+    "BUS_SHORT",
+    "DUP_ADDR",
+    "FAR_END",
+    "GEAR_FAIL",
+    "HEALTHY",
+    "LAMP_FAIL",
+    "MAINS_SWITCHED",
+    "NO_ADDR",
+    "REPLACE_TWO",
+    "SUPPLY_LOW"
+   ]
+  },
+  "P": {
+   "name": "variant P: display and web server",
+   "facts": {
+    "channels": {
+     "value": 1,
+     "source": "S16 section 3.4, p. 14",
+     "note": "one DALI output"
+    },
+    "gear_per_channel": {
+     "value": 64,
+     "source": "S16 section 3.4, p. 14",
+     "note": ""
+    },
+    "groups_per_channel": {
+     "value": 16,
+     "source": "S16 section 3.4, p. 14",
+     "note": "plus individual control of 64 gear"
+    },
+    "scenes_per_channel": {
+     "value": 16,
+     "source": "S16 section 3.4, p. 15",
+     "note": ""
+    },
+    "single_master": {
+     "value": null,
+     "source": "-",
+     "note": "no quoted sentence on multi-master operation"
+    },
+    "external_supply_allowed": {
+     "value": null,
+     "source": "-",
+     "note": "no quoted sentence for this variant"
+    },
+    "i_guaranteed_a": {
+     "value": 0.16,
+     "source": "S16 section 3.4, p. 14",
+     "note": "'guaranteed value of 160mA'"
+    },
+    "i_max_a": {
+     "value": 0.16,
+     "source": "S16 chapter 14, p. 85",
+     "note": "'maximum total current of 160mA'; the hardware leaflet was not read, so a higher short-circuit current is not ruled out"
+    },
+    "short_shutdown_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "short_restart_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "short_hides_failures": {
+     "value": true,
+     "source": "S16 section 20.2.9, p. 148",
+     "note": "no further failures can be recognised during a short"
+    },
+    "cable_max_m": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "emergency_test_commands": {
+     "value": null,
+     "source": "-",
+     "note": "the feature list names single-battery converters and a test mode for central-battery systems (S16 p. 15); test commands and result objects were not verified"
+    },
+    "poll_default_s": {
+     "value": null,
+     "source": "-",
+     "note": "a 1 s / 128 s statement for this variant did not survive verification"
+    },
+    "poll_settings_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "poll_error_types": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "energy_saving": {
+     "value": "16 objects, assigned per group or per gear; off delay 10 s to 10 min, on delay 0.1 to 2 s",
+     "source": "S16 sections 21.1.3.1, p. 155, and 22.1.4, p. 208",
+     "note": ""
+    },
+    "failures_suppressed_while_mains_off": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read (open question A19)"
+    }
+   },
+   "polling": {
+    "documented": false,
+    "note": "a 1 s / 128 s statement for this variant did not survive verification"
+   },
+   "budget": {
+    "i_guaranteed_ma": 160.0,
+    "i_max_ma": 160.0,
+    "basis": "guaranteed",
+    "gear_no_reserve": 64,
+    "gear_with_reserve": 64,
+    "uncapped_no_reserve": 80,
+    "uncapped_with_reserve": 66,
+    "headroom_above_guaranteed_pct": 0.0,
+    "drop_at_table_limit_v": 1.1034
+   },
+   "overload_sweep": {
+    "linear": {
+     "ratio_first_frame_errors": 1.01,
+     "ratio_first_gear_lost": 1.01,
+     "ratio_all_lost": 1.01,
+     "pct_over_first_frame_errors": 1,
+     "pct_over_all_lost": 1
+    },
+    "hard": {
+     "ratio_first_frame_errors": 1.01,
+     "ratio_first_gear_lost": 1.01,
+     "ratio_all_lost": 1.01,
+     "pct_over_first_frame_errors": 1,
+     "pct_over_all_lost": 1
+    }
+   },
+   "short_circuit": {
+    "documented": false,
+    "note": "not stated in the documents read"
+   },
+   "emergency_scope": "not stated",
+   "fault_classes_claimed": 10,
+   "e4_certain_95_claimed": [
+    "BUS_SHORT",
+    "DUP_ADDR",
+    "FAR_END",
+    "GEAR_FAIL",
+    "HEALTHY",
+    "LAMP_FAIL",
+    "MAINS_SWITCHED",
+    "NO_ADDR",
+    "REPLACE_TWO",
+    "SUPPLY_LOW"
+   ]
+  },
+  "L": {
+   "name": "variant L: older, with display",
+   "facts": {
+    "channels": {
+     "value": 1,
+     "source": "S18 p. 1-2",
+     "note": "64 gear and 16 groups per gateway"
+    },
+    "gear_per_channel": {
+     "value": 64,
+     "source": "S18 p. 2, technical data",
+     "note": ""
+    },
+    "groups_per_channel": {
+     "value": 16,
+     "source": "S18 p. 1",
+     "note": "a gear can belong to one group only, and a grouped gear can no longer be controlled individually"
+    },
+    "scenes_per_channel": {
+     "value": null,
+     "source": "-",
+     "note": "a claim of 16 scenes did not survive verification"
+    },
+    "single_master": {
+     "value": "category-1 control unit",
+     "source": "S18 p. 2, technical data",
+     "note": "the quoted text gives the category, not the word single-master"
+    },
+    "external_supply_allowed": {
+     "value": false,
+     "source": "S18 p. 1",
+     "note": "an additional DALI supply is not required and not permitted"
+    },
+    "i_guaranteed_a": {
+     "value": null,
+     "source": "-",
+     "note": "only 'max. 128 mA' is stated"
+    },
+    "i_max_a": {
+     "value": 0.128,
+     "source": "S18 p. 2, technical data",
+     "note": "output DC 16 to 20 V"
+    },
+    "short_shutdown_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "short_restart_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "short_hides_failures": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "cable_max_m": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "emergency_test_commands": {
+     "value": true,
+     "source": "S17 sections 11.4, p. 59, and 8.6, p. 51",
+     "note": "function and duration tests per converter, started by a KNX object or the website; central-battery test mode of 15 min to 4 h"
+    },
+    "poll_default_s": {
+     "value": null,
+     "source": "-",
+     "note": "a 1 s / 128 s statement for this variant did not survive verification"
+    },
+    "poll_settings_s": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "poll_error_types": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read"
+    },
+    "energy_saving": {
+     "value": "one object per group, group level only; DALI switch-on commands 300 ms after the object goes to 1; off delay 10 s to 10 min",
+     "source": "S17 sections 16.4, p. 109, and 17.2.1, p. 128-129",
+     "note": ""
+    },
+    "failures_suppressed_while_mains_off": {
+     "value": null,
+     "source": "-",
+     "note": "not stated in the documents read (open question A19)"
+    }
+   },
+   "polling": {
+    "documented": false,
+    "note": "a 1 s / 128 s statement for this variant did not survive verification"
+   },
+   "budget": {
+    "i_guaranteed_ma": null,
+    "i_max_ma": 128.0,
+    "basis": "maximum only (my reading)",
+    "gear_no_reserve": 64,
+    "gear_with_reserve": 53,
+    "uncapped_no_reserve": 64,
+    "uncapped_with_reserve": 53,
+    "headroom_above_guaranteed_pct": 0.0,
+    "drop_at_table_limit_v": 0.8828
+   },
+   "overload_sweep": {
+    "linear": {
+     "ratio_first_frame_errors": 1.01,
+     "ratio_first_gear_lost": 1.01,
+     "ratio_all_lost": 1.01,
+     "pct_over_first_frame_errors": 1,
+     "pct_over_all_lost": 1
+    },
+    "hard": {
+     "ratio_first_frame_errors": 1.01,
+     "ratio_first_gear_lost": 1.01,
+     "ratio_all_lost": 1.01,
+     "pct_over_first_frame_errors": 1,
+     "pct_over_all_lost": 1
+    }
+   },
+   "short_circuit": {
+    "documented": false,
+    "note": "not stated in the documents read"
+   },
+   "emergency_scope": "in scope",
+   "fault_classes_claimed": 11,
+   "e4_certain_95_claimed": [
+    "BUS_SHORT",
+    "DUP_ADDR",
+    "EMERG_TEST",
+    "FAR_END",
+    "GEAR_FAIL",
+    "HEALTHY",
+    "LAMP_FAIL",
+    "MAINS_SWITCHED",
+    "NO_ADDR",
+    "REPLACE_TWO",
+    "SUPPLY_LOW"
+   ]
+  }
+ },
+ "energy_saving": {
+  "n_gear": 64,
+  "t_cycle": 1.0,
+  "members": 8,
+  "lights_off": [
+   [
+    600.0,
+    660.0
+   ],
+   [
+    1200.0,
+    1500.0
+   ],
+   [
+    2400.0,
+    6000.0
+   ]
+  ],
+  "cases": {
+   "delay_10s_not_suppressed": {
+    "suppressed": false,
+    "scan_s": 128.0,
+    "mains_off": [
+     [
+      610.0,
+      660.1
+     ],
+     [
+      1210.0,
+      1500.1
+     ],
+     [
+      2410.0,
+      6000.1
+     ]
+    ],
+    "gear_failure_telegrams": 19,
+    "gear_reported_failed": [
+     0,
+     8,
+     16,
+     24,
+     32,
+     40,
+     48,
+     56
+    ],
+    "max_failures_in_total": 8,
+    "polls_skipped": 0,
+    "first_failure_after_lights_off_s": 24.0,
+    "energy_saving_telegrams": 6,
+    "knx_excerpt": [
+     [
+      610.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      624.0,
+      "gear",
+      56,
+      1
+     ],
+     [
+      640.0,
+      "gear",
+      0,
+      1
+     ],
+     [
+      656.0,
+      "gear",
+      8,
+      1
+     ],
+     [
+      660.0,
+      "energy_saving",
+      null,
+      1
+     ],
+     [
+      752.0,
+      "gear",
+      56,
+      0
+     ]
+    ]
+   },
+   "delay_10s_suppressed": {
+    "suppressed": true,
+    "scan_s": 128.0,
+    "mains_off": [
+     [
+      610.0,
+      660.1
+     ],
+     [
+      1210.0,
+      1500.1
+     ],
+     [
+      2410.0,
+      6000.1
+     ]
+    ],
+    "gear_failure_telegrams": 0,
+    "gear_reported_failed": [],
+    "max_failures_in_total": 0,
+    "polls_skipped": 246,
+    "first_failure_after_lights_off_s": null,
+    "energy_saving_telegrams": 6,
+    "knx_excerpt": [
+     [
+      610.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      660.0,
+      "energy_saving",
+      null,
+      1
+     ],
+     [
+      1210.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      1500.0,
+      "energy_saving",
+      null,
+      1
+     ],
+     [
+      2410.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      6000.0,
+      "energy_saving",
+      null,
+      1
+     ]
+    ]
+   },
+   "delay_600s_not_suppressed": {
+    "suppressed": false,
+    "scan_s": 128.0,
+    "mains_off": [
+     [
+      3000.0,
+      6000.1
+     ]
+    ],
+    "gear_failure_telegrams": 8,
+    "gear_reported_failed": [
+     0,
+     8,
+     16,
+     24,
+     32,
+     40,
+     48,
+     56
+    ],
+    "max_failures_in_total": 8,
+    "polls_skipped": 0,
+    "first_failure_after_lights_off_s": 608.0,
+    "energy_saving_telegrams": 2,
+    "knx_excerpt": [
+     [
+      3000.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      3008.0,
+      "gear",
+      32,
+      1
+     ],
+     [
+      3024.0,
+      "gear",
+      40,
+      1
+     ],
+     [
+      3040.0,
+      "gear",
+      48,
+      1
+     ],
+     [
+      3056.0,
+      "gear",
+      56,
+      1
+     ],
+     [
+      3072.0,
+      "gear",
+      0,
+      1
+     ]
+    ]
+   },
+   "delay_600s_suppressed": {
+    "suppressed": true,
+    "scan_s": 128.0,
+    "mains_off": [
+     [
+      3000.0,
+      6000.1
+     ]
+    ],
+    "gear_failure_telegrams": 0,
+    "gear_reported_failed": [],
+    "max_failures_in_total": 0,
+    "polls_skipped": 188,
+    "first_failure_after_lights_off_s": null,
+    "energy_saving_telegrams": 2,
+    "knx_excerpt": [
+     [
+      3000.0,
+      "energy_saving",
+      null,
+      0
+     ],
+     [
+      6000.0,
+      "energy_saving",
+      null,
+      1
+     ]
+    ]
+   }
+  },
+  "rows": [
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 30,
+    "p_not_suppressed": 0.159,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 60,
+    "p_not_suppressed": 0.391,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 120,
+    "p_not_suppressed": 0.8678,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 300,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 900,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 1,
+    "lights_off_s": 3600,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 30,
+    "p_not_suppressed": 0.7585,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 60,
+    "p_not_suppressed": 0.9858,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 120,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 300,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 900,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 10.0,
+    "members": 8,
+    "lights_off_s": 3600,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 30,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 60,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 120,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 300,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 900,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 1,
+    "lights_off_s": 3600,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 30,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 60,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 120,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 300,
+    "p_not_suppressed": 0.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 900,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   },
+   {
+    "delay_off_s": 600.0,
+    "members": 8,
+    "lights_off_s": 3600,
+    "p_not_suppressed": 1.0,
+    "p_suppressed": 0.0
+   }
+  ]
  },
  "support_case": {
   "seed": 4006,
