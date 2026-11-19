@@ -36,7 +36,8 @@ probe, E4 plus site facts (switched circuits, emergency test plan, wiring, suppl
    E1 only a lamp failure (status bit 1) and a bus short are certain, both in 100 % of the
    runs. A gear added without a short address and an overloaded supply leave no failure
    object at all: 0 % ranked first at E1. Over all four levels the engine gave 1404
-   "certain" verdicts and 0 of them were wrong. While a bus short lasts, nothing else is
+   "certain" verdicts and 0 of them were wrong. That holds at the assumed line noise of
+   0.6 V; with 1.0 V the far-end rule was wrong 83 times (see Limits). While a bus short lasts, nothing else is
    reported: 0 of 28 lamp failures that happened during a short reached any level.
 
 2. **One extra piece of evidence separates the look-alikes, and its physics is simple.** A
