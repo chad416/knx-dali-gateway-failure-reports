@@ -2,8 +2,9 @@
 
 Simulated study. No hardware and no recording from a real installation was used. All
 result numbers are in `results/summary.json` and are produced by
-`python scripts/run_all.py`; tables T1 to T11 are in `results/tables.md`. Source ids
-(S1 to S12) refer to `docs/SOURCES.md`. IEC 62386 was not read; every protocol value is a
+`python scripts/run_all.py`; tables T1 to T14 are in `results/tables.md`. Source ids
+(S1 to S18) refer to `docs/SOURCES.md`; S13 to S18 are the documents of three gateway
+variants B, P and L of one manufacturer (`daligw/variants.py`). IEC 62386 was not read; every protocol value is a
 manufacturer's restatement of it. The structure follows Wasson, *System Engineering
 Analysis, Design, and Development*.
 
@@ -50,7 +51,7 @@ normal:  slot k -> QUERY STATUS to gear (k div 2) of the known list
            even slot: valid answer -> gear object = bit 0; no valid answer -> gear object = 1
            odd slot:  valid answer -> lamp object = bit 1; no valid answer -> unchanged
          KNX command -> DALI group / individual / broadcast command
-bus short (idle level gone for 0.5 s, A8) -> bus object = 1, polling stops
+bus short (output shut down after 0.6 s, S15; object sent then, A8) -> bus object = 1, polling stops
 replacement request -> count faulty known gear and new unaddressed gear -> result 0, 7..11 (S9)
 ```
 
@@ -70,13 +71,16 @@ what the next level would add -> E2 -> E3 -> E4.
 | R-07 | Status byte bits 0 to 7 as in S2 and S4 | S2, S4 | tests `test_status_byte_bits`, round trip of all 256 values |
 | R-08 | Answer 0xFF = yes, no answer = no | S3 | probe of QUERY MISSING SHORT ADDRESS |
 | R-09 | Supply never above 250 mA; consumption at most the guaranteed current; plan with / 1.2 | S7, S8 | test `test_supply_budget` |
+| R-09a | Built-in supply per variant: B min. 128 / max. 250 mA, P 160 / 160 mA, L max. 128 mA; no additional supply (B, L) | S13, S15, S16, S18 | test `test_budget_per_variant` |
 | R-10 | Each unit draws at most 2 mA | S8 | gear draw 1 to 2 mA |
 | R-11 | Gear read high above 9.5 V, low below 6.5 V; a control device high above 10 V, low below 4.5 V | S8 | reception model, overload sweep |
 | R-12 | Voltage drop 2 V; conductor table 0.5 / 0.75 / 1.5 mm2 for 100 / 150 / 300 m | S2, S8 | test `test_conductor_table_is_a_constant_resistance_rule` |
-| R-13 | Polling: 1 s per gear and error type, 64 gear = 128 s | S9 | test `test_polling_delay_no_traffic_matches_formula` |
-| R-14 | Bus short: bus object, no further errors recognised | S5, S9 | test `test_bus_short_masks_everything` |
+| R-13 | Polling: 1 s per gear and error type, 64 gear = 128 s; settings 0.5 to 10 s or none (variant B); not documented for P and L | S9, S13 | tests `test_polling_delay_no_traffic_matches_formula`, `test_polling_rule_only_where_documented` |
+| R-14 | Bus short: bus object, no further errors recognised | S5, S9, S16 | test `test_bus_short_masks_everything` |
+| R-14a | Variant B: output off 0.6 s after a short, start-up attempt 5 s after detection | S15 | test `test_short_circuit_timing_variant_b` |
 | R-15 | Automatic replacement only for one faulty and one new gear of the same type; error codes 7 to 11 | S9 | test `test_replace_two_aborts_with_error_8` |
 | R-16 | The normal gear of an emergency pair is disconnected during a test and reported failed unless declared | S5, S9 | EMERG_TEST class |
+| R-16a | The EMERG_TEST class is claimed only for a variant that supports emergency tests (L); outside B (test commands not supported), not stated for P | S15, S16, S17 | test `test_emergency_class_only_where_tests_are_supported` |
 | R-17 | A verdict marked "certain" must not be wrong | need | evaluation: wrong certain verdicts = 0 |
 | R-18 | A healthy installation must not be accused | need | HEALTHY row of the confusion matrices |
 | R-19 | Every hypothesis states the evidence it rests on | need | report text, `results/support_case.txt` |
@@ -136,9 +140,18 @@ second: a 0.2 s slot can no longer be kept and the p99 rises from 25.3 s to 88.0
 scheduler of S10 (one query per gear, a pause after each) gives 67.5 s for 64 gear at 1 s
 pause without traffic and stretches more under traffic (p99 160 s at 90 %, T7).
 
-**Supply** (T9). 64 gear x 2 mA = 128 mA. With the / 1.2 planning reserve of S7 a full
-line needs 153.6 mA guaranteed. A 128 mA supply carries 53 gear with the reserve, 64
-without. Other bus devices (sensors, push-button interfaces) come out of the same budget.
+**Supply** (T9, T13). 64 gear x 2 mA = 128 mA. With the / 1.2 planning reserve of S7 a
+full line needs 153.6 mA guaranteed. Variant B (min. 128 mA) carries 53 gear with the
+reserve, 64 without; variant P (160 mA) carries 64 either way (66 with the reserve if the
+64 addresses did not cap it); variant L states only a maximum of 128 mA, which gives 53 if
+used as the budget. Other bus devices (sensors, push-button interfaces) come out of the
+same budget. B has 95 % between its two figures; P and L have none, so any overload there
+removes the bus at once whatever the curve shape.
+
+**Short circuit** (T13, variant B). Output off 0.6 s after a short; start-up attempt
+5 s after detection, repeated at that interval while the short lasts (A18). The bus is
+back at most 5 s after the short clears; a fault that began during the short is reported
+at most 5 s + 128 s = 133 s after it clears at the default polling.
 
 **Wiring** (T10). The conductor table is a constant-resistance rule: 100 m of 0.5 mm2,
 150 m of 0.75 mm2 and 300 m of 1.5 mm2 all give 6.90 ohm loop resistance and 1.72 V at
@@ -185,7 +198,9 @@ the evidence and the rule. (b) cannot say why and would learn this simulator's t
 
 ### 6.3 Polling slot for the gateway (commissioning)
 
-Alternatives: 2 s, 1 s (default of S9), 0.5 s, 0.2 s per gear and error type, for 64 gear.
+Alternatives: 2 s, 1 s (default of S9 and of variant B, S13), 0.5 s (shortest setting of
+variant B), 0.2 s per gear and error type (below any documented setting; kept to show the
+scheduler), for 64 gear.
 Decision rule: the smallest worst-case reporting delay whose p99 does not more than double
 when commands use 90 % of the bus. Results (T7): 2 s gives 256 s and stays at 254 s p99;
 1 s gives 128 s and 129 s; 0.5 s gives 64 s and 90 s; 0.2 s gives 25.6 s and 88 s. Decision:
@@ -204,9 +219,9 @@ slot well above the 54.9 ms a query takes, more the busier the bus.
 | A3 | Two answers combine as a wired-AND of their waveforms | bus idle high, transmitters pull low (S8); no source describes a collision | carries the duplicate-address certainty |
 | A4 | Gear transmitter pulls the bus to 0 V at its terminals (residual 0 V) | no source | residual 1 V cuts the reliable length on 0.5 mm2 from 133 m to 75 m (T10) |
 | A5 | Gaussian noise 0.6 V on each half-bit sample | no source | at 1.0 V the far-end rule gives 83 wrong certain verdicts at E3 (T6) |
-| A6 | Supply voltage sags linearly from the guaranteed to the maximum current ("linear"), or holds until the maximum ("hard") | no source gives the curve | first errors at 16 % or 67 % overload; both lose all gear at once (T9) |
+| A6 | Supply voltage sags linearly from the guaranteed to the maximum current ("linear"), or holds until the maximum ("hard") | no source gives the curve | with variant B's 128 / 250 mA, first errors at 23 % or 96 % overload; both lose all gear at once (T9); for P and L the two figures coincide, so the shape does not matter |
 | A7 | Each product answers after a fixed delay drawn in 5.5 to 10.5 ms | window from S1 and S3 | two products with different delays always collide; same product collides only when the bytes differ |
-| A8 | Gateway notices a bus short in 0.5 s | not stated for the gateways read | timing of the bus object only |
+| A8 | Gateway sets the bus failure object when it shuts its output down, 0.6 s after a short (variant B, S15) | the shutdown time is stated, the time of the object is not | timing of the bus object only |
 | A9 | Commissioning finds a gear if it is powered, hears the bus, is alive and its frame error probability is below 0.5 | search sequence not verified | decides which gear are unknown in SUPPLY_LOW and FAR_END |
 | A10 | Any switching command clears status bit 7 | the clearing commands could not be checked | decides how briefly a twin-like duplicate and a mains return are visible |
 | A11 | The gateway's receiver locks to the bit grid of the earliest answer | simplest receiver | offsets below half a half-bit (208 us) are not seen |
@@ -216,6 +231,8 @@ slot well above the 54.9 ms a query takes, more the busier the bus.
 | A15 | Emergency function test 30 to 300 s; 20 % of tests are long (duration tests) | test lengths not in the sources read | short tests are missed by polling (1 of 60 at E4) |
 | A16 | Pause scheduler: one QUERY STATUS per gear | S10 gives the pause, not the query set | the pause rows of T7 |
 | A17 | The gateway treats a corrupted answer like no answer | not described in the manuals | a duplicate or a far gear sets the gear failure object |
+| A18 | Variant B repeats its start-up attempt every 5 s while a short lasts, counted from the shutdown | S15 states one attempt 5 s after detection | the bus is back at most 5 s after a short clears (T13) |
+| A19 | Open question, both answers simulated: failure reports of gear whose mains the gateway's energy-saving function switched off are held back, or not | no document of B, P or L says (S13, S14, S16, S17) | not held back: every gear on such an object is reported failed after a long enough off period (T14); held back: nothing on the failure objects |
 
 ### 7.2 How we know the model is right
 
@@ -262,7 +279,7 @@ gear, timing and variants random. Sensitivity runs for A3/A10 (twin-like duplica
 
 | Item | Result | Status |
 |---|---|---|
-| Tests | 83 passed (`python -m pytest -q`) | pass |
+| Tests | 95 passed (`python -m pytest -q`) | pass |
 | R-01 to R-16 | covered by tests in `tests/` and the checks of 7.2 | pass |
 | R-17 no wrong certain verdict | 0 of 1404 at base assumptions | pass |
 | R-17 under noise 1.0 V | 83 wrong at E3 and at E4 (all "far end") | fail, documented as limit |
@@ -292,9 +309,16 @@ gear, timing and variants random. Sensitivity runs for A3/A10 (twin-like duplica
   and 1.5 mm2 at increasing length; create each fault on purpose and run the engine on the
   recordings.
 - A3, A4, A5 and A10 have no source and carry findings. They are the first things to
-  measure.
-- Gateway behaviour follows S9 and S5. Another product may poll differently, report a
-  corrupted answer differently, or show more on its diagnostics page.
+  measure. `docs/BENCH_TEST_PLAN.md` lists the measurement for every assumption.
+- Gateway behaviour follows variant B (S13 to S15) for polling and short-circuit times,
+  S9 and S5 elsewhere. Variants P and L do not document their polling. Another product may
+  poll differently, report a corrupted answer differently, or show more on its diagnostics
+  page.
+- Whether a gateway reports gear whose mains its own energy-saving function switched off
+  is not documented for any variant (A19). Both answers are simulated; one bench test
+  settles it.
+- The EMERG_TEST class is claimed for variant L only; B does not support test commands,
+  P does not say.
 - One fault per run (except the lamp failure hidden by a bus short).
 - The commissioning search, device types DT1 / DT6 / DT8 and mixed version 1 / DALI-2
   devices are not modelled.

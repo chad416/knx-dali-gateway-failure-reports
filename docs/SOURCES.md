@@ -4,7 +4,7 @@ The DALI standard (IEC 62386 parts 101, 102, 103) was not read: it is not free. 
 protocol fact below is a manufacturer's restatement of it, from documents that anyone can
 open. Where two independent manufacturers give the same value, both are listed. The
 column "taken" says exactly what was used. Each document was opened and read for this
-project (the two gateway manuals as PDF text). What could not be verified is listed at the
+project (the gateway manuals as PDF text). What could not be verified is listed at the
 end, with what that means for the model.
 
 | Id | Document | Where it was read | Taken |
@@ -21,6 +21,24 @@ end, with what that means for the model.
 | S10 | ABB i-bus KNX, *DALI Gateway Basic DG/S x.64.1.1* product manual (document 2CDC507164D0201), read through the ManualsLib viewer | https://www.manualslib.com/manual/1294330/Abb-I-Bus-Knx.html?page=188 and ?page=38 | A ballast fault is indicated when the ballast malfunctions and sends nothing, has no supply voltage, its DALI line is interrupted, or it lost its address (p. 188); the gateway must be told once which addresses to monitor; parameter "Pause between two DALI QUERY polls" 0 to 255 x 100 ms, apparently 2 (200 ms) by default, and a fault may not be detected straight away (p. 38). Used for the pause-style scheduler and for the list of causes that look the same on KNX. |
 | S11 | Wikipedia, *International Annealed Copper Standard* | https://en.wikipedia.org/wiki/International_Annealed_Copper_Standard | Conductivity of annealed copper 58 x 10^6 S/m at 20 C, so 1/58 ohm mm2/m. Textbook value; used for the loop resistance. |
 | S12 | I. J. Hirsh, C. E. Sherrick, *Perceived order in different sense modalities*, J. Exp. Psychol. 62 (1961) 423-432 | not read; known only through secondary summaries | About 20 ms between two events is needed to judge their order. Used only as the lower of two visibility thresholds in the stagger table; the 100 ms threshold is my own assumption. |
+
+### Gateway variants B, P and L (S13 to S18)
+
+S13 to S18 are public documents of one manufacturer, open to anyone without a login. I do
+not name the manufacturer, the products, order numbers or download addresses on purpose:
+the study is about the behaviour, not about a brand. The documents were read as PDF text,
+and every value taken from them was checked against a verbatim quotation with its section
+and page. Page numbers are the printed footers. Values the documents do not state are
+marked "not stated" in `daligw/variants.py`, never filled from another product.
+
+| Id | Document | Where it was read | Taken |
+|---|---|---|---|
+| S13 | Application description of a one- and two-channel KNX/DALI gateway without display (variant B), firmware 3.0, 2021, 94 pages | public document of the manufacturer | One- and two-channel devices, the second channel an identical copy of the first (section 1, p. 4); up to 64 gear and 16 groups per channel, supply from the gateway, "an additional DALI power supply is not required and not permitted" (2.3, p. 5-6); 16 scenes (8.1, p. 24); failure objects for DALI short circuit, lamp and gear failures, totals and status, a device counted once (8.1, p. 24-26); polling: at the 1 s standard setting 64 gear take 128 s, 1 s per gear and type of error, up to about 2 minutes before a fault is recognised (7.2, p. 20); cycle setting no request, 0.5 s, 1 s, 2 ... 10 s, "no request" switches gear and lamp fault recognition off (9.1.2, p. 43); energy-saving objects switch a separate supply off when their groups or gear are off and on again before a value above 0 % (8.3, p. 27), off delay 10 s to 10 min, on delay 0.1 to 2 s (9.1.3, p. 46); all gear must be powered at post installation or they are deleted (11.4, p. 76); quick exchange only for one faulty and one new gear of the same type, error types 7 to 11 (11.5, p. 77). |
+| S14 | Later edition of the S13 application description, 2024, 96 pages | public document of the manufacturer | Polling, cycle setting, energy-saving function and limits stated as in S13 (7.2, p. 20; 9.1.2, p. 43; 9.1.3, p. 46). Used only to confirm that S13 still holds. |
+| S15 | Installation leaflet of the one-channel device of variant B, 2021, 2 pages | public document of the manufacturer | Technical data (p. 2): output typically 16 V DC; output current max. 250 mA, min. 128 mA; shutdown delay 600 ms after a DALI short; start-up attempt 5 s after short-circuit detection; at most 300 m of cable for the whole DALI installation of a segment. Notes (p. 1): single-battery emergency converters can be read, switched and operated; DALI commands for starting tests and reading test results are not supported. |
+| S16 | Application description of a one-channel KNX/DALI gateway with display, keys and web server (variant P), firmware 2.2, 2026, 292 pages | public document of the manufacturer | One DALI output for up to 64 gear, 16 groups plus individual control, guaranteed current 160 mA (3.4, p. 14); 16 scenes, single-battery converters and a test mode for central-battery systems in the feature list (p. 15); maximum total current 160 mA (chapter 14, p. 85); no further failures recognised during a DALI short (20.2.9, p. 148); energy-saving objects and their delays as in S13 (21.1.3.1, p. 155; 22.1.4, p. 208). |
+| S17 | Application description of an older one-channel KNX/DALI gateway with display and web server (variant L), 150 pages | public document of the manufacturer | Function and duration tests, started by a KNX object or the website (11.4, p. 59); central-battery test time 15 min to 4 h (8.6, p. 51); energy-saving object per group only, switch-on commands 300 ms after the object goes to 1, off delay 10 s to 10 min (16.4, p. 109; 17.2.1, p. 128-129). |
+| S18 | Operating instructions of the variant L gateway, 2012, 2 pages | public document of the manufacturer | Up to 64 gear, 16 groups per gateway, one group per gear and no individual control of grouped gear (p. 1); an additional DALI supply is not permitted (p. 1); output DC 16 to 20 V, output current max. 128 mA, category-1 control unit (p. 2). |
 
 ## What I could not verify
 
@@ -52,6 +70,27 @@ end, with what that means for the model.
   mixed version 1 / DALI-2 problems, colour temperature differences: not modelled.
 - **Field reports from user forums**: not used; only manufacturer documents are cited.
 - **Gateway behaviour is product-specific.** S5, S9 and S10 describe three products of
-  different generations. Object numbers, error codes and timings are not general KNX or DALI
-  rules. The model follows S9 for polling and replacement and S5 for the emergency-test and
-  short-circuit behaviour.
+  different generations, S13 to S18 three variants of a fourth manufacturer. Object
+  numbers, error codes and timings are not general KNX or DALI rules. The model polls as
+  variant B documents (S13, the same rule as S9), follows S9 for replacement and S5 for
+  the emergency-test behaviour, and uses the documented supply currents and short-circuit
+  times of each variant in the studies.
+- **What the variant documents do not answer** (each is marked "not stated" in
+  `daligw/variants.py` and has a bench test in `docs/BENCH_TEST_PLAN.md`):
+  - whether failure reports are held back while the energy-saving function has switched a
+    gear's mains off, and what any variant reports when gear lose mains while the DALI line
+    stays powered (assumption A19, both answers simulated);
+  - the polling of variants P and L (claims of the same 1 s / 128 s rule for both did not
+    survive verification against the documents), and whether the two-channel B polls its
+    channels in parallel;
+  - the supply current of the two-channel B, a guaranteed current of L (only a maximum is
+    stated) and short-circuit times of P and L;
+  - emergency test commands on P;
+  - scenes of L (a claim did not survive verification);
+  - a separate limit on emergency converters, and a multi-master statement for B and P;
+  - that variant B repeats its start-up attempt every 5 s while a short lasts (S15 gives
+    one attempt; assumption A18).
+- **Interpretations of stated values.** "Min. 128 mA" of S15 is used as the guaranteed
+  current of B. The "max. 128 mA" of S18 is the only current of L and is used as its
+  budget. "16 scenes" on B is per channel because the second channel is a copy of the
+  first. These readings are mine.
