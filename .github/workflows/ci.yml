@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Tests
+        run: python -m pytest -q
+      - name: README numbers against the committed summary
+        run: python scripts/check_readme_numbers.py
+      - name: Results script (reduced run) and checks on its output
+        run: |
+          python scripts/run_all.py --quick
+          python - <<'PY'
+          import json
+          d = json.load(open("results/quick/summary_quick.json"))
+          # no certain verdict of the diagnosis engine is wrong
+          for level, v in d["diagnosis"]["certain_verdicts"].items():
+              assert v["wrong"] == 0, (level, v)
+          # backward frame 9.95 ms, polling scan formula reproduced
+          assert abs(d["dali"]["t_backward_ms"] - 9.95) < 0.01
+          assert d["polling"]["max_rel_error_no_traffic"] < 0.01
+          print("checks passed")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: results-quick
+          path: results/quick/summary_quick.json
