@@ -5,6 +5,8 @@ see DOSSIER.md section 7.1). IEC 62386 itself was not read; all protocol values 
 from openly readable manufacturer documentation that restates it.
 """
 
+from .variants import VARIANT_B as _B
+
 # ---- physical layer -------------------------------------------------------------------
 BIT_RATE = 1200.0                       # bit/s, Manchester coded            S1, S2, S3
 T_BIT = 1.0 / BIT_RATE                  # 0.833 ms                            S1, S3
@@ -62,7 +64,7 @@ STATUS_BITS = (
 )
 
 # ---- electrical ----------------------------------------------------------------------
-I_SUPPLY_MAX = 0.250                    # A, never above 250 mA on a line    S7, S8
+I_SUPPLY_MAX = 0.250                    # A, never above 250 mA on a line    S7, S8 (variant B max, S15)
 I_GEAR_MAX = 2e-3                       # A, a unit draws at most 2 mA        S8
 SUPPLY_RESERVE = 1.2                    # plan with guaranteed current / 1.2  S7 (attributed by S7 to IEC 62386)
 V_DROP_MAX = 2.0                        # V along the wiring                  S2, S8
@@ -77,14 +79,22 @@ DEV_V_LOW_MAX = 4.5                     # V, control device reads low         S8
 RHO_CU = 1.0 / 58.0                     # ohm mm2 / m, annealed copper (textbook value, S11)
 
 # ---- gateway -------------------------------------------------------------------------
-POLL_CYCLE_DEFAULT = 1.0                # s per gear and error type           S9
-POLL_ERROR_TYPES = 2                    # lamp and gear error: 64 gear -> 128 s S9
+# The simulated gateway polls like variant B, the only one of the three documented
+# variants whose documents state the polling rule (daligw/variants.py). S9, a gateway of
+# another manufacturer, states the same rule.
+POLL_CYCLE_DEFAULT = _B.poll_default_s.value      # 1 s per gear and error type   S9, S13
+POLL_ERROR_TYPES = _B.poll_error_types.value      # lamp and gear: 64 gear -> 128 s S9, S13
 REPLACE_ERRORS = {7: "no faulty gear", 8: "more than one gear faulty",
                   9: "no new gear found", 10: "wrong device type",
-                  11: "more than one new gear"}   # S9 section 4.1
+                  11: "more than one new gear"}   # S9 section 4.1, S13 section 11.5
 
 # ---- assumptions (DOSSIER 7.1) -------------------------------------------------------
 V_SUPPLY_NOMINAL = 16.0                 # A1: inside the 12..20.5 V range of S8
 NOISE_SIGMA = 0.6                       # A5: V, Gaussian noise on each half-bit sample
 TX_RESIDUAL_V = 0.0                     # A4: V, residual voltage of a gear transmitter
-BUS_FAIL_DETECT_S = 0.5                 # A8: s, gateway notices a bus short
+# A8: s, gateway sets the bus failure object this long after a short begins. Variant B
+# shuts its output down 0.6 s after a short (S15); that the object is sent at that moment
+# is the assumption.
+BUS_FAIL_DETECT_S = _B.short_shutdown_s.value
+# A18: while a short lasts, variant B retries its output every short_restart_s seconds
+# (S15 states one attempt 5 s after detection, not the repetition).
