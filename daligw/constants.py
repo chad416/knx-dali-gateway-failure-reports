@@ -62,7 +62,7 @@ STATUS_BITS = (
 )
 
 # ---- electrical ----------------------------------------------------------------------
-I_SUPPLY_MAX = 0.250                    # A, never above 250 mA on a line    S3, S7
+I_SUPPLY_MAX = 0.250                    # A, never above 250 mA on a line    S7, S8
 I_GEAR_MAX = 2e-3                       # A, a unit draws at most 2 mA        S8
 SUPPLY_RESERVE = 1.2                    # plan with guaranteed current / 1.2  S7 (attributed by S7 to IEC 62386)
 V_DROP_MAX = 2.0                        # V along the wiring                  S2, S8

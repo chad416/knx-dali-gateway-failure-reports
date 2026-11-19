@@ -211,23 +211,38 @@ def support_case(out, summary):
         lines.append(f"  t={t:7.1f} s  {obj:4s} failure  gear {s}  -> {v}")
     for lv in LEVELS:
         lines += ["", diagnose(ev, lv).text()]
-    lines += ["", "E3 trace excerpt (polls of the silent gear):"]
-    shown = 0
+    lines += ["", "E3 trace excerpt (first poll without answer and first answer after it, per silent gear):"]
+    seen_none, seen_back = set(), set()
     for t, s, kind, val, mark in ev.trace:
-        if s in silent and (kind != "ok" or (val is not None and val >> 7 & 1)):
-            st = "" if val is None else f" status=0x{val:02X} {F.decode_status(val)}"
-            lines.append(f"  t={t:7.1f} s  QUERY STATUS gear {s:2d}: {kind}{st}")
-            shown += 1
-            if shown > 14:
-                break
+        if s not in silent:
+            continue
+        if kind == "none" and s not in seen_none:
+            seen_none.add(s)
+        elif kind == "ok" and s in seen_none and s not in seen_back:
+            seen_back.add(s)
+        else:
+            continue
+        st = "" if val is None else f" status=0x{val:02X} power_cycle_seen={val >> 7 & 1}"
+        lines.append(f"  t={t:7.1f} s  QUERY STATUS gear {s:2d}: {kind}{st}")
     lines += ["", f"E4 site: circuit members {ev.site['circuit_members']}, "
               f"circuit log {[(round(a, 1), round(b, 1)) for a, b in ev.site['circuit_log']]}"]
+    fixed = make_run("MAINS_SWITCHED", run.truth["seed"], bridge_circuit=True)
+    fe = fixed.evidence
+    rep_fixed = diagnose(fe, "E4")
+    answered = sum(1 for row in fe.trace if row[1] in silent and row[2] == "ok")
+    polled = sum(1 for row in fe.trace if row[1] in silent)
+    lines += ["", "After the fix (circuit bridged, same installation and traffic):",
+              f"  KNX failure objects: {len(fe.knx)}",
+              f"  polls of the six gear answered: {answered} of {polled}",
+              rep_fixed.text()]
     (out / "support_case.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     first_t = min(t for t, o, s, v in ev.knx if v == 1)
     summary["support_case"] = {
         "seed": run.truth["seed"], "members": ev.site["circuit_members"],
         "off": ev.site["circuit_log"][0], "first_object_s": first_t,
         "objects": len(ev.knx),
+        "fixed": {"objects": len(fe.knx), "answered": answered, "polled": polled,
+                  "e4": [rep_fixed.first.cls, rep_fixed.first.certainty]},
         "levels": {lv: [diagnose(ev, lv).first.cls, diagnose(ev, lv).first.certainty]
                    for lv in LEVELS}}
 

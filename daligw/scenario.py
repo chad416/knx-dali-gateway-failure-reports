@@ -113,7 +113,7 @@ def make_run(fault: str, seed: int, **kw) -> Run:
 def _make_run(fault: str, seed: int, t_cycle: float = C.POLL_CYCLE_DEFAULT,
               sigma: float = C.NOISE_SIGMA, same_product_dup: float = 0.5,
               t_obs: float = T_OBS, supply_shape: str = "linear",
-              dup_twin_like: bool = False) -> Run | None:
+              dup_twin_like: bool = False, bridge_circuit: bool = False) -> Run | None:
     rng = random.Random(seed)
     adds_gear = fault in ("DUP_ADDR", "NO_ADDR")
     n = rng.randint(8, 63 if adds_gear else 64)
@@ -219,6 +219,12 @@ def _make_run(fault: str, seed: int, t_cycle: float = C.POLL_CYCLE_DEFAULT,
             if t > 0.9 * t_obs:
                 break
         variant = "stays_off" if math.isinf(circuit_log[-1][1]) else f"{len(circuit_log)}_off"
+    if bridge_circuit:
+        # the fix of the support case: permanent mains, light switched over DALI
+        circuit_log = []
+        for i in circuit_members:
+            gear[i].circuit = None
+        circuit_members = []
     for i in circuit_members:
         gear[i].off = list(circuit_log)
 
