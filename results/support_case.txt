@@ -1,0 +1,53 @@
+Support case evidence (simulated), MAINS_SWITCHED seed 4006
+luminaires installed: 40, known to the gateway: 40, polling 1 s per gear and error type
+
+E1 KNX failure objects:
+  t=  376.0 s  gear failure  gear 28  -> 1
+  t=  386.0 s  gear failure  gear 33  -> 1
+  t=  390.0 s  gear failure  gear 35  -> 1
+  t=  396.0 s  gear failure  gear 38  -> 1
+  t=  424.0 s  gear failure  gear 12  -> 1
+  t=  432.0 s  gear failure  gear 16  -> 1
+  t=  776.0 s  gear failure  gear 28  -> 0
+  t=  786.0 s  gear failure  gear 33  -> 0
+  t=  790.0 s  gear failure  gear 35  -> 0
+  t=  796.0 s  gear failure  gear 38  -> 0
+  t=  824.0 s  gear failure  gear 12  -> 0
+  t=  832.0 s  gear failure  gear 16  -> 0
+
+Evidence level E1
+1. MAINS_SWITCHED [likely] 6 gear fail (and recover) within one polling scan of each other: they lost power together
+
+Evidence level E2
+1. MAINS_SWITCHED [likely] 6 gear fail (and recover) within one polling scan of each other: they lost power together
+
+Evidence level E3
+1. MAINS_SWITCHED [likely] 6 gear were silent and came back (1 of them with status bit 7, power cycle seen): they lost mains, they are not defective
+
+Evidence level E4
+1. MAINS_SWITCHED [certain] every silent gear [12, 16, 28, 33, 35, 38] sits on the separately switched circuit and was silent only while that circuit was off
+
+E3 trace excerpt (first poll without answer and first answer after it, per silent gear):
+  t=  376.0 s  QUERY STATUS gear 28: none
+  t=  386.0 s  QUERY STATUS gear 33: none
+  t=  390.0 s  QUERY STATUS gear 35: none
+  t=  396.0 s  QUERY STATUS gear 38: none
+  t=  424.0 s  QUERY STATUS gear 12: none
+  t=  432.0 s  QUERY STATUS gear 16: none
+  t=  776.0 s  QUERY STATUS gear 28: ok status=0x84 power_cycle_seen=1
+  t=  786.0 s  QUERY STATUS gear 33: ok status=0x00 power_cycle_seen=0
+  t=  790.0 s  QUERY STATUS gear 35: ok status=0x00 power_cycle_seen=0
+  t=  796.0 s  QUERY STATUS gear 38: ok status=0x04 power_cycle_seen=0
+  t=  824.0 s  QUERY STATUS gear 12: ok status=0x00 power_cycle_seen=0
+  t=  832.0 s  QUERY STATUS gear 16: ok status=0x00 power_cycle_seen=0
+
+E4 site: circuit members [12, 16, 28, 33, 35, 38], circuit log [(369.8, 755.6)]
+
+After the fix (circuit bridged, same installation and traffic):
+  KNX failure objects: 0
+  polls of the six gear answered: 268 of 268
+Evidence level E4
+1. HEALTHY [certain] count matches the site, every gear answers cleanly, no switching, test, wiring or supply issue
+2. DUP_ADDR [possible] leaves no failure object
+3. NO_ADDR [possible] leaves no failure object
+4. SUPPLY_LOW [possible] leaves no failure object
